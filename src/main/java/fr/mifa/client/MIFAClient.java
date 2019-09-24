@@ -1,31 +1,15 @@
 package fr.mifa.client;
 
-import fr.mifa.core.models.TextMessage;
-import fr.mifa.core.network.Client;
-import fr.mifa.core.network.protocol.MessagePacket;
-
-import java.util.Scanner;
+import fr.mifa.client.network.ClientPacketManager;
+import fr.mifa.core.network.PacketManager;
 
 public class MIFAClient {
     public static void main(String[] args) {
         System.out.println("Hello World mifa-client !");
 
-        Client client = new Client();
+        //TODO: arguments for host and port
+        PacketManager client = new ClientPacketManager();
         client.connect("localhost", 2021);
-
-        try ( Scanner scanner = new Scanner( System.in ) ) {
-            while( true ) {
-                System.out.print( "> " );
-                String text = scanner.nextLine();
-
-                TextMessage message = new TextMessage();
-                message.setText(text);
-                message.setRoomId(1);
-
-                MessagePacket packet = new MessagePacket();
-                packet.setMessage(message);
-                client.send(packet);
-            }
-        }
+        client.start();
     }
 }
