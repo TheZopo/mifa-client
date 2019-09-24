@@ -19,10 +19,10 @@ public class ClientPacketManager extends PacketManager {
     protected void processPacket(Packet packet) {
         if(packet instanceof JoinedRoomPacket) {
             JoinedRoomPacket joinedRoomPacket = (JoinedRoomPacket) packet;
-            MessageService.INSTANCE.displayText(joinedRoomPacket  + " joined the room !", joinedRoomPacket.getRoomId());
+            MessageService.INSTANCE.displayText(joinedRoomPacket.getNickname()  + " joined the room !", joinedRoomPacket.getRoomId());
         } else if(packet instanceof LeftRoomPacket) {
             LeftRoomPacket leftRoomPacket = (LeftRoomPacket) packet;
-            MessageService.INSTANCE.displayText(leftRoomPacket  + " left the room !", leftRoomPacket.getRoomId());
+            MessageService.INSTANCE.displayText(leftRoomPacket.getNickname()  + " left the room !", leftRoomPacket.getRoomId());
         } else if(packet instanceof MessageSentPacket) {
             MessageSentPacket messageSentPacket = (MessageSentPacket) packet;
             MessageService.INSTANCE.displayMessage(messageSentPacket.getMessage());
