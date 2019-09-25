@@ -46,6 +46,17 @@
             <artifactId>reflections</artifactId>
             <version>0.9.11</version>
         </dependency>
+        <!-- Icons -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>11.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome5-pack</artifactId>
+            <version>11.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
