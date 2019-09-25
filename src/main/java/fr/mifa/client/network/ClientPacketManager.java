@@ -1,9 +1,9 @@
 package fr.mifa.client.network;
 
+import fr.mifa.client.services.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.mifa.client.services.MessageService;
 import fr.mifa.core.network.PacketManager;
 import fr.mifa.core.network.protocol.HelloWorldPacket;
 import fr.mifa.core.network.protocol.JoinedRoomPacket;
@@ -19,17 +19,18 @@ public class ClientPacketManager extends PacketManager {
     protected void processPacket(Packet packet) {
         if(packet instanceof JoinedRoomPacket) {
             JoinedRoomPacket joinedRoomPacket = (JoinedRoomPacket) packet;
-            MessageService.INSTANCE.displayText(joinedRoomPacket.getNickname()  + " joined the room !", joinedRoomPacket.getRoomId());
+            RoomService.INSTANCE.userLeft(joinedRoomPacket.getRoomId(), joinedRoomPacket.getNickname());
         } else if(packet instanceof LeftRoomPacket) {
             LeftRoomPacket leftRoomPacket = (LeftRoomPacket) packet;
-            MessageService.INSTANCE.displayText(leftRoomPacket.getNickname()  + " left the room !", leftRoomPacket.getRoomId());
+            RoomService.INSTANCE.userLeft(leftRoomPacket.getRoomId(), leftRoomPacket.getNickname());
         } else if(packet instanceof MessageSentPacket) {
             MessageSentPacket messageSentPacket = (MessageSentPacket) packet;
-            MessageService.INSTANCE.displayMessage(messageSentPacket.getMessage());
+            RoomService.INSTANCE.messageSent(messageSentPacket.getMessage());
         } else if(packet instanceof RoomListPacket) {
-            //TODO: listen from GUI
+            RoomListPacket roomListPacket = (RoomListPacket)packet;
+            RoomService.INSTANCE.setRooms(roomListPacket.getRooms());
         } else if(packet instanceof HelloWorldPacket) {
-            //TODO: something else ?
+            // TODO alert user
             logger.info("Successfully connected to the server !");
         }
     }

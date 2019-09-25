@@ -9,8 +9,6 @@ public class MIFAClient extends Application {
 
     public static void main(String[] args) {
         System.out.println("Hello World mifa-client !");
-
-        //TODO: arguments for host and port
         launch(args);
     }
 

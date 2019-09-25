@@ -1,6 +1,7 @@
 package fr.mifa.client.services;
 
 import fr.mifa.client.network.ClientPacketManager;
+import fr.mifa.client.utils.ClientProperties;
 import fr.mifa.core.network.PacketManager;
 import fr.mifa.core.network.protocol.AuthPacket;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
@@ -9,18 +10,18 @@ public enum NetworkService {
     INSTANCE;
 
     public void connectToServer(String host, String nickname) {
-        int port = 2021;
-
+        if (host == null || "".equals(host)) {
+            host = ClientProperties.INSTANCE.get("host", "localhost");
+        }
+        int port = Integer.parseInt(ClientProperties.INSTANCE.get("port", "2021"));
         if(host.contains(":")) {
-            port = Integer.parseInt(host.split(":")[1]);
             host = host.split(":")[0];
+            port = Integer.parseInt(host.split(":")[1]);
         }
 
         PacketManager client = new ClientPacketManager();
-        client.connect(host, 2021);
+        client.connect(host, port);
         client.start();
-
         client.send(new AuthPacket(nickname));
-        client.send(new JoinRoomPacket(1));
     }
 }

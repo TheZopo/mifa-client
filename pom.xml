@@ -57,6 +57,12 @@
             <artifactId>ikonli-fontawesome5-pack</artifactId>
             <version>11.0.0</version>
         </dependency>
+        <!-- env file -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.1.1</version>
+        </dependency>
     </dependencies>
 
     <build>
