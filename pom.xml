@@ -17,11 +17,13 @@
     </repositories>
 
     <dependencies>
+        <!-- mIFA entities -->
         <dependency>
             <groupId>fr.mifa</groupId>
             <artifactId>core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -32,10 +34,17 @@
             <artifactId>javafx-fxml</artifactId>
             <version>11</version>
         </dependency>
+        <!-- Material design for JavaFX -->
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>9.0.9</version>
+        </dependency>
+        <!-- Reflection for resources list -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
         </dependency>
     </dependencies>
 
