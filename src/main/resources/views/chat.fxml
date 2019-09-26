@@ -16,18 +16,18 @@
                             <JFXTextField styleClass="medium-textfield" fx:id="addRoom" promptText="Add a room" />
                             <FontIcon iconLiteral="fas-plus-square" iconSize="20" />
                         </HBox>
-                        <VBox spacing="5">
-                            <HBox styleClass="icon-textfield-wrapper" spacing="20">
+                        <VBox styleClass="room-list">
+                            <HBox styleClass="room">
                                 <FontIcon iconLiteral="fas-users" iconSize="24" />
-                                <Label style="-fx-font-size: 16px">Room 1</Label>
+                                <Label>Room 1</Label>
                             </HBox>
-                            <HBox styleClass="icon-textfield-wrapper" spacing="20">
+                            <HBox styleClass="room">
                                 <FontIcon iconLiteral="fas-users" iconSize="24" />
-                                <Label style="-fx-font-size: 16px">Long Room 2</Label>
+                                <Label>Long Room 1</Label>
                             </HBox>
-                            <HBox styleClass="icon-textfield-wrapper" spacing="20">
+                            <HBox styleClass="room">
                                 <FontIcon iconLiteral="fas-users" iconSize="24" />
-                                <Label style="-fx-font-size: 16px">Long Room 3</Label>
+                                <Label>Long Room 1</Label>
                             </HBox>
                         </VBox>
                     </VBox>
@@ -38,27 +38,27 @@
                         <Insets left="100" right="100"/>
                     </padding>
                     <VBox GridPane.rowIndex="0" spacing="10">
-                        <Label style="-fx-font-size: 24; -fx-padding: 30 0">Room 1</Label>
-                        <HBox spacing="10" alignment="TOP_LEFT">
-                            <VBox spacing="4">
+                        <Label styleClass="title-1">Room 1</Label>
+                        <HBox styleClass="message-other">
+                            <VBox styleClass="message-author">
                                 <FontIcon iconLiteral="fas-user" iconSize="50" />
                                 <Label>Bastien</Label>
                             </VBox>
-                            <VBox spacing="5">
-                                <Label style="-fx-border-color: black; -fx-background-color: lightgray; -fx-padding: 10;">Message 1</Label>
-                                <Label style="-fx-border-color: black; -fx-background-color: lightgray; -fx-padding: 10;">Super long message 2</Label>
-                                <Label style="-fx-border-color: black; -fx-background-color: lightgray; -fx-padding: 10;">Super long message 3</Label>
-                                <Label style="-fx-border-color: black; -fx-background-color: lightgray; -fx-padding: 10;">Message 4</Label>
+                            <VBox styleClass="message-content">
+                                <Label>Message 1</Label>
+                                <Label>Super long message 2</Label>
+                                <Label>Super long message 3</Label>
+                                <Label>Message 4</Label>
                             </VBox>
                         </HBox>
-                        <HBox spacing="10" alignment="TOP_RIGHT">
-                            <VBox spacing="5" alignment="TOP_RIGHT">
-                                <Label style="-fx-border-color: black; -fx-background-color: lightblue; -fx-padding: 10;">Message 1</Label>
-                                <Label style="-fx-border-color: black; -fx-background-color: lightblue; -fx-padding: 10;">Super long message 2</Label>
-                                <Label style="-fx-border-color: black; -fx-background-color: lightblue; -fx-padding: 10;">Super long message 3</Label>
-                                <Label style="-fx-border-color: black; -fx-background-color: lightblue; -fx-padding: 10;">Message 4</Label>
+                        <HBox styleClass="message-me">
+                            <VBox styleClass="message-content">
+                                <Label>Message 1</Label>
+                                <Label>Super long message 2</Label>
+                                <Label>Super long message 3</Label>
+                                <Label>Message 4</Label>
                             </VBox>
-                            <VBox spacing="4">
+                            <VBox styleClass="message-author">
                                 <FontIcon iconLiteral="fas-user" iconSize="50" />
                                 <Label>Bastien</Label>
                             </VBox>

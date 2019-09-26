@@ -34,7 +34,7 @@ public class GUIManager {
 
     public void init() {
         loadAllScenes();
-        currentScene = scenes.get("login");
+        currentScene = scenes.get("chat");
 
         stage.setTitle("mIFA Client");
         stage.setScene(currentScene);
@@ -57,7 +57,10 @@ public class GUIManager {
         loader.setCharset(Charset.forName("UTF-8"));
         try {
             Scene scene = new Scene(loader.load(MIFAClient.class.getResourceAsStream("/" + resourcePath)), 1280, 720);
-            scene.getStylesheets().addAll(getClass().getResource("/css/components.css").toExternalForm());
+            scene.getStylesheets().addAll(
+                    getClass().getResource("/css/components.css").toExternalForm(),
+                    getClass().getResource("/css/style.css").toExternalForm()
+            );
             scenes.put(sceneName, scene);
         } catch (IOException e) {
             e.printStackTrace();
