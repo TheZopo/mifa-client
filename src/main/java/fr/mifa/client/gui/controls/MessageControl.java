@@ -51,7 +51,6 @@ public class MessageControl extends HBox {
 
     @FXML
     public void initialize() {
-        System.out.println(this.messages.getStyleClass());
         author.setText(authorName);
         for(String message : messagesList) {
             messages.getChildren().add(new Label(message));
@@ -61,5 +60,9 @@ public class MessageControl extends HBox {
     public void addMessage(String message) {
         messagesList.add(message);
         messages.getChildren().add(new Label(message));
+    }
+
+    public String getAuthorName() {
+        return authorName;
     }
 }

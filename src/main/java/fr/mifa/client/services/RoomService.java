@@ -1,5 +1,7 @@
 package fr.mifa.client.services;
 
+import fr.mifa.client.gui.controllers.ChatController;
+import fr.mifa.client.gui.controls.MessageType;
 import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
 import fr.mifa.core.models.User;
@@ -46,6 +48,9 @@ public enum RoomService {
     public void messageSent(Message message) {
         Room room = getRoomByName(message.getRoomName());
         room.getHistory().add(message);
+
+        //TODO: get if the author is the user
+        ChatController.instance.addMessage(message.getAuthorName(), message.getRoomName(), MessageType.ME);
     }
 
     private Room getRoomByName(String roomName) {

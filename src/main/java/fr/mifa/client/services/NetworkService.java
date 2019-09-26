@@ -2,6 +2,8 @@ package fr.mifa.client.services;
 
 import fr.mifa.client.network.ClientPacketManager;
 import fr.mifa.client.utils.ClientProperties;
+import fr.mifa.core.models.Message;
+import fr.mifa.core.models.TextMessage;
 import fr.mifa.core.network.PacketManager;
 import fr.mifa.core.network.protocol.AuthPacket;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
@@ -26,5 +28,16 @@ public enum NetworkService {
         client.connect(host, port);
         client.start();
         client.send(new AuthPacket(nickname));
+
+        //TODO: for test purpose, remove this
+        joinRoom("room");
+    }
+
+    public void sendTextMessage(String room, String message) {
+        client.send(new MessagePacket(new TextMessage(room, message)));
+    }
+
+    public void joinRoom(String room) {
+        client.send(new JoinRoomPacket(room));
     }
 }

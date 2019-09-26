@@ -7,11 +7,13 @@ import java.util.ArrayList;
 
 import fr.mifa.client.gui.controls.MessageControl;
 import fr.mifa.client.gui.controls.MessageType;
+import fr.mifa.client.services.NetworkService;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 public class ChatController {
+    public static ChatController instance;
 
     @FXML
     JFXTextField roomToAdd;
@@ -24,6 +26,10 @@ public class ChatController {
 
     @FXML
     JFXTextArea message;
+
+    public ChatController() {
+        instance = this;
+    }
 
     @FXML
     public void initialize() {
@@ -45,15 +51,33 @@ public class ChatController {
         //TODO: load messages
     }
 
+    @FXML
     public void sendMessage(MouseEvent mouseEvent) {
-
+        //TODO: validate
+        NetworkService.INSTANCE.sendTextMessage("room", message.getText());
     }
 
+    @FXML
     public void addRoom(MouseEvent mouseEvent) {
 
     }
 
+    @FXML
     public void changeRoom(MouseEvent mouseEvent) {
 
+    }
+
+    //TODO: naming
+    public void addMessage(String author, String message, MessageType messageType) {
+        MessageControl lastMessage = (MessageControl) messagesList.getChildren().get(messagesList.getChildren().size() - 1);
+
+        if(lastMessage.getAuthorName().equals(author)) {
+            lastMessage.addMessage(message);
+        } else {
+            ArrayList<String> subMessagesList = new ArrayList<>();
+            subMessagesList.add(message);
+
+            messagesList.getChildren().add(new MessageControl(author, subMessagesList, messageType));
+        }
     }
 }

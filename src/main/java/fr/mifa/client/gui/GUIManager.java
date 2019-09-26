@@ -34,7 +34,7 @@ public class GUIManager {
 
     public void init() {
         loadAllScenes();
-        currentScene = scenes.get("chat");
+        currentScene = scenes.get("login");
 
         stage.setTitle("mIFA Client");
         stage.setScene(currentScene);
