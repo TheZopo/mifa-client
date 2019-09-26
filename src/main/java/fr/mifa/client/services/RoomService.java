@@ -86,11 +86,8 @@ public enum RoomService {
     }
 
     private void syncView() {
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                ChatController.instance.loadRooms(rooms);
-            }
+        Platform.runLater(() -> {
+            ChatController.INSTANCE.loadRooms(rooms);
         });
     }
 }

@@ -7,8 +7,11 @@ import fr.mifa.client.services.RoomService;
 import fr.mifa.client.services.UserService;
 import fr.mifa.core.models.Room;
 import javafx.collections.ObservableList;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -18,9 +21,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 
 public class ChatController {
+    public static ChatController INSTANCE;
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
-
-    public static ChatController instance;
 
     @FXML
     JFXTextField roomToAdd;
@@ -34,7 +36,7 @@ public class ChatController {
     private ChatroomControl currentRoomControl;
 
     public ChatController() {
-        instance = this;
+        INSTANCE = this;
     }
 
     @FXML
