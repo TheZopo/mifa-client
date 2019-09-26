@@ -65,7 +65,10 @@ public class ChatController {
 
     @FXML
     public void addRoom(MouseEvent mouseEvent) {
-        RoomService.INSTANCE.joinRoom(roomToAdd.getText());
+        if (roomToAdd.validate()) {
+            RoomService.INSTANCE.joinRoom(roomToAdd.getText());
+            roomToAdd.setText("");
+        }
     }
 
     public void loadRooms(ArrayList<Room> rooms) {
@@ -75,13 +78,17 @@ public class ChatController {
         }
         Room currentRoom = UserService.INSTANCE.getCurrentRoom();
         if (currentRoom != null) {
-            ObservableList<Node> children = container.getChildren();
-            if (children.size() == 2) {
-                // a room is already loaded, remove it to replace
-                children.remove(container.getChildren().size() - 1);
-            }
-            currentRoomControl = new ChatroomControl(currentRoom);
-            children.add(currentRoomControl);
+            switchToRoom(currentRoom);
         }
+    }
+
+    public void switchToRoom(Room room) {
+        ObservableList<Node> children = container.getChildren();
+        if (children.size() == 2) {
+            // a room is already loaded, remove it to replace
+            children.remove(container.getChildren().size() - 1);
+        }
+        currentRoomControl = new ChatroomControl(room);
+        children.add(currentRoomControl);
     }
 }

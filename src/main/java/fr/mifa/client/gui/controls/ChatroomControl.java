@@ -57,6 +57,11 @@ public class ChatroomControl extends GridPane {
     @FXML
     public void initialize() {
         roomName.setText(room.getName());
+        messagesList.getChildren().clear();
+        String userNickname = UserService.INSTANCE.getUserNickname();
+        for (Message message : room.getHistory()) {
+            addMessage(message, message.getAuthorName().equals(userNickname) ? MessageType.ME : MessageType.OTHER);
+        }
     }
 
     private void sendMessage() {
@@ -67,8 +72,9 @@ public class ChatroomControl extends GridPane {
     }
 
     //TODO: naming
-    public void addMessage(String author, Message message, MessageType messageType) {
+    public void addMessage(Message message, MessageType messageType) {
         ObservableList<Node> childMessages = messagesList.getChildren();
+        String author = message.getAuthorName();
         MessageControl lastMessage = childMessages.size() > 0 ? (MessageControl) messagesList.getChildren().get(childMessages.size() - 1) : null;
 
         if (message instanceof TextMessage) {

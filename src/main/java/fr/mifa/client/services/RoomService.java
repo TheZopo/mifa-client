@@ -64,7 +64,7 @@ public enum RoomService {
             MessageType origin = message.getAuthorName().equals(UserService.INSTANCE.getUserNickname()) ? MessageType.ME : MessageType.OTHER;
             if (room.get().getName().equals(UserService.INSTANCE.getCurrentRoom().getName())) {
                 Platform.runLater(() -> {
-                    ChatController.INSTANCE.getCurrentRoomControl().addMessage(message.getAuthorName(), message, origin);
+                    ChatController.INSTANCE.getCurrentRoomControl().addMessage(message, origin);
                 });
             }
         }

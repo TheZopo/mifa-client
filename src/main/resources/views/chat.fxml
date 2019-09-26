@@ -9,6 +9,7 @@
 <?import com.jfoenix.controls.JFXScrollPane?>
 
 <?import javafx.scene.control.ScrollBar?><?import javafx.scene.control.ScrollPane?>
+<?import com.jfoenix.validation.RequiredFieldValidator?>
 <StackPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.mifa.client.gui.controllers.ChatController">
     <children>
         <GridPane maxHeight="Infinity" alignment="TOP_CENTER" fx:id="container">
@@ -19,7 +20,12 @@
                     </padding>
                     <VBox spacing="30">
                         <HBox styleClass="icon-textfield-wrapper" spacing="20">
-                            <JFXTextField styleClass="medium-textfield" fx:id="roomToAdd" promptText="Add a room" />
+                            <JFXTextField styleClass="medium-textfield" fx:id="roomToAdd" promptText="Add a room" >
+                                <validators>
+                                    <RequiredFieldValidator message="">
+                                    </RequiredFieldValidator>
+                                </validators>
+                            </JFXTextField>
                             <FontIcon iconLiteral="fas-plus-square" styleClass="icon-button" iconSize="20" onMouseClicked="#addRoom" />
                         </HBox>
                         <VBox styleClass="room-list" fx:id="roomList">

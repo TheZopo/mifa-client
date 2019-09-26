@@ -1,8 +1,12 @@
 package fr.mifa.client.services;
 
+import fr.mifa.client.gui.controllers.ChatController;
+import fr.mifa.client.gui.controls.MessageType;
+import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
 import fr.mifa.core.models.TextMessage;
 import fr.mifa.core.network.protocol.MessagePacket;
+import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +34,9 @@ public enum  UserService {
     public void setCurrentRoom(Room currentRoom) {
         if (currentRoom != this.currentRoom) {
             this.currentRoom = currentRoom;
+            Platform.runLater(() -> {
+                ChatController.INSTANCE.switchToRoom(currentRoom);
+            });
         }
     }
 
