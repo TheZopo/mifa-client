@@ -7,6 +7,10 @@
 
 /* Messages */
 
+.messages-list {
+    -fx-spacing: 4;
+}
+
 .message-other {
     -fx-spacing: 10;
     -fx-alignment: TOP_LEFT;
@@ -53,7 +57,19 @@
 }
 
 .room-list > .room {
+    -fx-padding: 4;
     -fx-alignment: CENTER_LEFT;
     -fx-font-size: 16;
     -fx-spacing: 12;
+}
+
+.room-list > .room:hover {
+    -fx-background-color: lightgray;
+    -fx-cursor: hand;
+}
+
+/* Buttons */
+
+FontIcon.icon-button:hover {
+    -fx-cursor: hand;
 }
