@@ -8,6 +8,7 @@ import fr.mifa.core.network.PacketManager;
 import fr.mifa.core.network.protocol.AuthPacket;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
 import fr.mifa.core.network.protocol.MessagePacket;
+import fr.mifa.core.network.protocol.Packet;
 
 public enum NetworkService {
     INSTANCE;
@@ -30,14 +31,14 @@ public enum NetworkService {
         client.send(new AuthPacket(nickname));
 
         //TODO: for test purpose, remove this
-        joinRoom("room");
+        //joinRoom("room");
     }
 
     public void sendTextMessage(String room, String message) {
-        client.send(new MessagePacket(new TextMessage(room, message)));
+        sendPacket(new MessagePacket(new TextMessage(room, message)));
     }
 
-    public void joinRoom(String room) {
-        client.send(new JoinRoomPacket(room));
+    public void sendPacket(Packet packet) {
+        client.send(packet);
     }
 }

@@ -23,18 +23,6 @@
                             <FontIcon iconLiteral="fas-plus-square" styleClass="icon-button" iconSize="20" onMouseClicked="#addRoom" />
                         </HBox>
                         <VBox styleClass="room-list" fx:id="roomList">
-                            <HBox styleClass="room" onMouseClicked="#changeRoom" userData="room-1">
-                                <FontIcon iconLiteral="fas-users" iconSize="24" />
-                                <Label>Room 1</Label>
-                            </HBox>
-                            <HBox styleClass="room" onMouseClicked="#changeRoom" userData="long-room-1">
-                                <FontIcon iconLiteral="fas-users" iconSize="24" />
-                                <Label>Long Room 1</Label>
-                            </HBox>
-                            <HBox styleClass="room" onMouseClicked="#changeRoom" userData="long-room-2">
-                                <FontIcon iconLiteral="fas-users" iconSize="24" />
-                                <Label>Long Room 2</Label>
-                            </HBox>
                         </VBox>
                     </VBox>
                 </StackPane>

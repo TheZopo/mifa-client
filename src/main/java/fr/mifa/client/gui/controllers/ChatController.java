@@ -7,12 +7,19 @@ import java.util.ArrayList;
 
 import fr.mifa.client.gui.controls.MessageControl;
 import fr.mifa.client.gui.controls.MessageType;
+import fr.mifa.client.gui.controls.RoomControl;
 import fr.mifa.client.services.NetworkService;
+import fr.mifa.client.services.RoomService;
+import fr.mifa.core.models.Room;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ChatController {
+    private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
+
     public static ChatController instance;
 
     @FXML
@@ -59,12 +66,20 @@ public class ChatController {
 
     @FXML
     public void addRoom(MouseEvent mouseEvent) {
-
+        logger.debug("Adding room");
+        RoomService.INSTANCE.joinRoom(roomToAdd.getText());
     }
 
     @FXML
     public void changeRoom(MouseEvent mouseEvent) {
+        logger.debug("Changing room");
+    }
 
+    public void loadRooms(ArrayList<Room> rooms) {
+        roomList.getChildren().clear();
+        for (Room room : rooms) {
+            roomList.getChildren().add(new RoomControl(room));
+        }
     }
 
     //TODO: naming

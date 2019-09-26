@@ -19,7 +19,7 @@ public class ClientPacketManager extends PacketManager {
     protected void processPacket(Packet packet) {
         if(packet instanceof JoinedRoomPacket) {
             JoinedRoomPacket joinedRoomPacket = (JoinedRoomPacket) packet;
-            RoomService.INSTANCE.userLeft(joinedRoomPacket.getRoomId(), joinedRoomPacket.getNickname());
+            RoomService.INSTANCE.userJoined(joinedRoomPacket.getRoom(), joinedRoomPacket.getNickname());
         } else if(packet instanceof LeftRoomPacket) {
             LeftRoomPacket leftRoomPacket = (LeftRoomPacket) packet;
             RoomService.INSTANCE.userLeft(leftRoomPacket.getRoomId(), leftRoomPacket.getNickname());
