@@ -30,8 +30,6 @@ public enum NetworkService {
         client.start();
         sendPacket(new AuthPacket(nickname));
         UserService.INSTANCE.setUserNickname(nickname);
-        //TODO: for test purpose, remove this
-        //joinRoom("room");
     }
 
     public void sendTextMessage(String room, String message) {
