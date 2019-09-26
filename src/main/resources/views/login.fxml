@@ -16,12 +16,12 @@
                 <body>
                     <VBox styleClass="form">
                         <HBox styleClass="icon-textfield-wrapper">
-                            <FontIcon iconLiteral="fas-server" iconSize="24"/>
+                            <FontIcon iconLiteral="fas-server" iconSize="24" iconColor="gray"/>
                             <JFXTextField styleClass="big-textfield" fx:id="host" promptText="localhost"/>
                         </HBox>
                         <HBox styleClass="icon-textfield-wrapper">
-                            <FontIcon iconLiteral="fas-user" iconSize="24"/>
-                            <JFXTextField styleClass="big-textfield" fx:id="nickname" promptText="Nickname*" >
+                            <FontIcon iconLiteral="fas-user" iconSize="24" iconColor="gray"/>
+                            <JFXTextField styleClass="big-textfield" fx:id="nickname" promptText="Nickname" >
                                 <validators>
                                     <RequiredFieldValidator message="Nickname required">
                                         <FontIcon iconLiteral="fas-exclamation-triangle"/>
@@ -38,3 +38,4 @@
         </VBox>
     </children>
 </StackPane>
+

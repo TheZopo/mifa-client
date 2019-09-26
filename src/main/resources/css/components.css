@@ -82,20 +82,17 @@
 
 .big-textfield {
 	-fx-font-size: 16px;
-	-fx-max-width: 400.0;
-	-fx-pref-width: 400.0;
+	-fx-min-width: 400.0;
 }
 
 .medium-textfield {
-	-fx-font-size: 16px;
-	-fx-max-width: 250.0;
-	-fx-pref-width: 250.0;
+	-fx-font-size: 14px;
+	-fx-min-width: 200.0;
 }
 
 .small-textfield {
-	-fx-font-size: 16px;
-	-fx-max-width: 75;
-	-fx-pref-width: 75;
+	-fx-font-size: 12px;
+	-fx-min-width: 75;
 }
 
 .icon-textfield-wrapper {
