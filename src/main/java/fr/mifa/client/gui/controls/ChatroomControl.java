@@ -60,10 +60,8 @@ public class ChatroomControl extends GridPane {
     }
 
     private void sendMessage() {
-        //TODO: validate
-        String text = message.getText();
-        if (text.length() > 0) {
-            UserService.INSTANCE.sendText(text);
+        if (message.validate()) {
+            UserService.INSTANCE.sendText(message.getText());
             message.setText("");
         }
     }
