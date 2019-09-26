@@ -5,9 +5,12 @@ import fr.mifa.client.utils.ClientProperties;
 import fr.mifa.core.network.PacketManager;
 import fr.mifa.core.network.protocol.AuthPacket;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
+import fr.mifa.core.network.protocol.MessagePacket;
 
 public enum NetworkService {
     INSTANCE;
+
+    private ClientPacketManager client;
 
     public void connectToServer(String host, String nickname) {
         if (host == null || "".equals(host)) {
@@ -19,7 +22,7 @@ public enum NetworkService {
             port = Integer.parseInt(host.split(":")[1]);
         }
 
-        PacketManager client = new ClientPacketManager();
+        client = new ClientPacketManager();
         client.connect(host, port);
         client.start();
         client.send(new AuthPacket(nickname));

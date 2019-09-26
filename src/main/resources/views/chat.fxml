@@ -48,24 +48,6 @@
                         <ScrollPane maxHeight="Infinity" fitToWidth="true">
                             <content>
                                 <VBox styleClass="messages-list" fx:id="messagesList">
-                                    <HBox styleClass="message-other">
-                                        <VBox styleClass="message-author">
-                                            <FontIcon iconLiteral="fas-user" iconSize="50" />
-                                            <Label>Author</Label>
-                                        </VBox>
-                                        <VBox styleClass="message-content">
-                                            <Label>Message 1</Label>
-                                        </VBox>
-                                    </HBox>
-                                    <HBox styleClass="message-me">
-                                        <VBox styleClass="message-content">
-                                            <Label>Message 1</Label>
-                                        </VBox>
-                                        <VBox styleClass="message-author">
-                                            <FontIcon iconLiteral="fas-user" iconSize="50" />
-                                            <Label>Author</Label>
-                                        </VBox>
-                                    </HBox>
                                 </VBox>
                             </content>
                         </ScrollPane>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
+    <VBox styleClass="message-author">
+        <FontIcon iconLiteral="fas-user" iconSize="50" />
+        <Label fx:id="author"></Label>
+    </VBox>
+    <VBox fx:id="messages" styleClass="message-content">
+    </VBox>
+</fx:root>

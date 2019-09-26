@@ -16,8 +16,9 @@
     -fx-alignment: TOP_LEFT;
 }
 
-.message-other > .message-author {
+.message-author {
     -fx-spacing: 4;
+    -fx-alignment: TOP_CENTER;
 }
 
 .message-other > .message-content {
@@ -33,10 +34,6 @@
 .message-me {
     -fx-spacing: 10;
     -fx-alignment: TOP_RIGHT;
-}
-
-.message-me > .message-author {
-    -fx-spacing: 4;
 }
 
 .message-me > .message-content {
