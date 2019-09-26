@@ -30,8 +30,7 @@ public enum NetworkService {
         client.start();
         client.send(new AuthPacket(nickname));
 
-        //TODO: for test purpose, remove this
-        //joinRoom("room");
+        RoomService.INSTANCE.registerNickname(nickname);
     }
 
     public void sendTextMessage(String room, String message) {
@@ -40,5 +39,9 @@ public enum NetworkService {
 
     public void sendPacket(Packet packet) {
         client.send(packet);
+    }
+
+    public ClientPacketManager getClient() {
+        return client;
     }
 }

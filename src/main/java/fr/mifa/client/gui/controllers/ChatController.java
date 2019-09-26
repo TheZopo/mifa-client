@@ -11,16 +11,18 @@ import fr.mifa.client.gui.controls.RoomControl;
 import fr.mifa.client.services.NetworkService;
 import fr.mifa.client.services.RoomService;
 import fr.mifa.core.models.Room;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ChatController {
+    public static ChatController INSTANCE;
     private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
-
-    public static ChatController instance;
 
     @FXML
     JFXTextField roomToAdd;
@@ -34,34 +36,28 @@ public class ChatController {
     @FXML
     JFXTextArea message;
 
+    @FXML
+    Label roomName;
+
+    @FXML
+    ScrollPane scrollPane;
+
     public ChatController() {
-        instance = this;
+        INSTANCE = this;
     }
 
     @FXML
     public void initialize() {
-        ArrayList<String> messages = new ArrayList<>();
-        messages.add("Hello");
-        messages.add("Hello my dear");
-        messages.add("Hello my dear how are you ?");
-
-        messagesList.getChildren().add(new MessageControl("Bastien", messages, MessageType.OTHER));
-
-        messages.clear();
-        messages.add("Hi !");
-        messages.add("Hi ! I'm fine");
-        messages.add("Hi ! I'm fine thanks you !");
-
-        messagesList.getChildren().add(new MessageControl("Me", messages, MessageType.ME));
-
-
+        scrollPane.vvalueProperty().bind(messagesList.heightProperty());
         //TODO: load messages
     }
 
     @FXML
     public void sendMessage(MouseEvent mouseEvent) {
-        //TODO: validate
-        NetworkService.INSTANCE.sendTextMessage("room", message.getText());
+        if(message.validate()) {
+            NetworkService.INSTANCE.sendTextMessage("room", message.getText());
+            message.clear();
+        }
     }
 
     @FXML
@@ -84,15 +80,17 @@ public class ChatController {
 
     //TODO: naming
     public void addMessage(String author, String message, MessageType messageType) {
-        MessageControl lastMessage = (MessageControl) messagesList.getChildren().get(messagesList.getChildren().size() - 1);
+        Platform.runLater(() -> {
+            MessageControl lastMessage = messagesList.getChildren().size() > 0 ? (MessageControl) messagesList.getChildren().get(messagesList.getChildren().size() - 1) : null;
 
-        if(lastMessage.getAuthorName().equals(author)) {
-            lastMessage.addMessage(message);
-        } else {
-            ArrayList<String> subMessagesList = new ArrayList<>();
-            subMessagesList.add(message);
+            if(lastMessage != null && lastMessage.getAuthorName().equals(author)) {
+                lastMessage.addMessage(message);
+            } else {
+                ArrayList<String> subMessagesList = new ArrayList<>();
+                subMessagesList.add(message);
 
-            messagesList.getChildren().add(new MessageControl(author, subMessagesList, messageType));
-        }
+                messagesList.getChildren().add(new MessageControl(author, subMessagesList, messageType));
+            }
+        });
     }
 }

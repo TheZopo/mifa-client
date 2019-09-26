@@ -8,7 +8,7 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXScrollPane?>
 
-<?import javafx.scene.control.ScrollBar?><?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ScrollBar?><?import javafx.scene.control.ScrollPane?><?import com.jfoenix.validation.RequiredFieldValidator?>
 <StackPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.mifa.client.gui.controllers.ChatController">
     <children>
         <GridPane maxHeight="Infinity" alignment="TOP_CENTER">
@@ -29,11 +29,14 @@
 
                 <GridPane GridPane.columnIndex="1" GridPane.vgrow="always"  style="-fx-background-color: white">
                     <padding>
-                        <Insets left="100" right="100"/>
+                        <Insets left="50" right="50"/>
                     </padding>
                     <VBox GridPane.rowIndex="0" spacing="10">
-                        <Label styleClass="title-1">Room 1</Label>
-                        <ScrollPane maxHeight="Infinity" fitToWidth="true">
+                        <Label styleClass="title-1" fx:id="roomName"></Label>
+                        <ScrollPane fx:id="scrollPane" maxHeight="Infinity" fitToWidth="true">
+                            <padding>
+                                <Insets left="50" right="50"/>
+                            </padding>
                             <content>
                                 <VBox styleClass="messages-list" fx:id="messagesList">
                                 </VBox>
@@ -42,7 +45,13 @@
                     </VBox>
                     <StackPane GridPane.rowIndex="1" GridPane.hgrow="always">
                         <HBox alignment="CENTER" spacing="10">
-                            <JFXTextArea fx:id="message" promptText="Say something..." labelFloat="true" maxHeight="50"></JFXTextArea>
+                            <JFXTextArea fx:id="message" promptText="Say something..." labelFloat="true" maxHeight="50">
+                                <validators>
+                                    <RequiredFieldValidator message="Your message can't be empty !">
+                                        <FontIcon iconLiteral="fas-exclamation-triangle"/>
+                                    </RequiredFieldValidator>
+                                </validators>
+                            </JFXTextArea>
                             <FontIcon onMouseClicked="#sendMessage" iconLiteral="far-paper-plane" iconSize="32" styleClass="icon-button" />
                         </HBox>
                     </StackPane>

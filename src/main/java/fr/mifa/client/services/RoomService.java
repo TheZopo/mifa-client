@@ -4,6 +4,7 @@ import fr.mifa.client.gui.controllers.ChatController;
 import fr.mifa.client.gui.controls.MessageType;
 import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
+import fr.mifa.core.models.TextMessage;
 import fr.mifa.core.models.User;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
 import javafx.application.Platform;
@@ -19,7 +20,8 @@ public enum RoomService {
 
     private static final Logger logger = LoggerFactory.getLogger(RoomService.class);
 
-    ArrayList<Room> rooms;
+    private ArrayList<Room> rooms;
+    private String nickname;
 
     public ArrayList<Room> getRooms() {
         return rooms;
@@ -54,6 +56,7 @@ public enum RoomService {
 
     public void joinRoom(String room) {
         NetworkService.INSTANCE.sendPacket(new JoinRoomPacket(room));
+        //TODO: load messages & set room name
     }
 
     public void messageSent(Message message) {
@@ -61,8 +64,11 @@ public enum RoomService {
         if (room.isPresent()) {
             room.get().getHistory().add(message);
 
-            //TODO: get if the author is the user
-            ChatController.instance.addMessage(message.getAuthorName(), message.getRoomName(), MessageType.ME);
+            if(message instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) message;
+                MessageType messageType = textMessage.getAuthorName().equals(nickname) ? MessageType.ME : MessageType.OTHER;
+                ChatController.INSTANCE.addMessage(textMessage.getAuthorName(), textMessage.getText(), messageType);
+            }
         }
         else {
             logger.warn("Room does not exist !");
@@ -82,11 +88,12 @@ public enum RoomService {
     }
 
     private void syncView() {
-        Platform.runLater(new Runnable(){
-            @Override
-            public void run() {
-                ChatController.instance.loadRooms(rooms);
-            }
+        Platform.runLater(() -> {
+            ChatController.INSTANCE.loadRooms(rooms);
         });
+    }
+
+    public void registerNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
