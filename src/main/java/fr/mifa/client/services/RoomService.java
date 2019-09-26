@@ -38,6 +38,7 @@ public enum RoomService {
         Optional<Room> storedRoom = getRoomById(room.getId());
         storedRoom.ifPresent(value -> this.rooms.remove(value));
         this.rooms.add(room);
+        UserService.INSTANCE.setCurrentRoom(room);
         syncView();
     }
 
@@ -60,9 +61,12 @@ public enum RoomService {
         Optional<Room> room = getRoomByName(message.getRoomName());
         if (room.isPresent()) {
             room.get().getHistory().add(message);
-
-            //TODO: get if the author is the user
-            ChatController.instance.addMessage(message.getAuthorName(), message.getRoomName(), MessageType.ME);
+            MessageType origin = message.getAuthorName().equals(UserService.INSTANCE.getUserNickname()) ? MessageType.ME : MessageType.OTHER;
+            if (room.get().getName().equals(UserService.INSTANCE.getCurrentRoom().getName())) {
+                Platform.runLater(() -> {
+                    ChatController.instance.getCurrentRoomControl().addMessage(message.getAuthorName(), message, origin);
+                });
+            }
         }
         else {
             logger.warn("Room does not exist !");

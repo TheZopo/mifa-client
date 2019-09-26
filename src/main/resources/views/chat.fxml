@@ -11,7 +11,7 @@
 <?import javafx.scene.control.ScrollBar?><?import javafx.scene.control.ScrollPane?>
 <StackPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.mifa.client.gui.controllers.ChatController">
     <children>
-        <GridPane maxHeight="Infinity" alignment="TOP_CENTER">
+        <GridPane maxHeight="Infinity" alignment="TOP_CENTER" fx:id="container">
             <children>
                 <StackPane GridPane.columnIndex="0" GridPane.vgrow="always" >
                     <padding>
@@ -26,31 +26,6 @@
                         </VBox>
                     </VBox>
                 </StackPane>
-
-                <GridPane GridPane.columnIndex="1" GridPane.vgrow="always"  style="-fx-background-color: white">
-                    <padding>
-                        <Insets left="100" right="100"/>
-                    </padding>
-                    <VBox GridPane.rowIndex="0" spacing="10">
-                        <Label styleClass="title-1">Room 1</Label>
-                        <ScrollPane maxHeight="Infinity" fitToWidth="true">
-                            <content>
-                                <VBox styleClass="messages-list" fx:id="messagesList">
-                                </VBox>
-                            </content>
-                        </ScrollPane>
-                    </VBox>
-                    <StackPane GridPane.rowIndex="1" GridPane.hgrow="always">
-                        <HBox alignment="CENTER" spacing="10">
-                            <JFXTextArea fx:id="message" promptText="Say something..." labelFloat="true" maxHeight="50"></JFXTextArea>
-                            <FontIcon onMouseClicked="#sendMessage" iconLiteral="far-paper-plane" iconSize="32" styleClass="icon-button" />
-                        </HBox>
-                    </StackPane>
-                    <rowConstraints>
-                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" percentHeight="85.0" prefHeight="100.0" />
-                        <RowConstraints vgrow="SOMETIMES" minHeight="10.0" percentHeight="15.0" prefHeight="100.0" />
-                    </rowConstraints>
-                </GridPane>
             </children>
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />

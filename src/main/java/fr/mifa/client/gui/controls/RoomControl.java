@@ -1,18 +1,15 @@
 package fr.mifa.client.gui.controls;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-
+import fr.mifa.client.services.UserService;
 import fr.mifa.core.models.Room;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class RoomControl extends HBox {
     private Room room;
@@ -31,11 +28,15 @@ public class RoomControl extends HBox {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        //TODO onMouseClicked -> change room
+        this.setOnMouseClicked((EventHandler<? super MouseEvent>) e -> onClick());
     }
 
     @FXML
     public void initialize() {
         roomName.setText(room.getName());
+    }
+
+    private void onClick() {
+        UserService.INSTANCE.setCurrentRoom(room);
     }
 }

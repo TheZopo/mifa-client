@@ -28,8 +28,8 @@ public enum NetworkService {
         client = new ClientPacketManager();
         client.connect(host, port);
         client.start();
-        client.send(new AuthPacket(nickname));
-
+        sendPacket(new AuthPacket(nickname));
+        UserService.INSTANCE.setUserNickname(nickname);
         //TODO: for test purpose, remove this
         //joinRoom("room");
     }

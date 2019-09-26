@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<fx:root styleClass="room" userData="room-1" type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
+<fx:root styleClass="room" type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
     <FontIcon iconLiteral="fas-users" iconSize="24" />
     <Label fx:id="roomName"></Label>
 </fx:root>
