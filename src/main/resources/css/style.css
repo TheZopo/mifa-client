@@ -65,6 +65,14 @@
     -fx-cursor: hand;
 }
 
+.room-header {
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+}
+
+.room-header > Label {
+    -fx-padding: 10 0 10 100;
+}
+
 /* Buttons */
 
 FontIcon.icon-button:hover {

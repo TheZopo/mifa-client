@@ -4,14 +4,13 @@ import fr.mifa.client.gui.controllers.ChatController;
 import fr.mifa.client.gui.controls.MessageType;
 import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
-import fr.mifa.core.models.User;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
+import fr.mifa.core.network.protocol.LeaveRoomPacket;
 import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Optional;
 
 public enum RoomService {
@@ -44,17 +43,28 @@ public enum RoomService {
 
     public void userLeft(int roomId, String user) {
         Optional<Room> room = getRoomById(roomId);
-        room.ifPresent(value -> value.getUsers().remove(
-                value.getUsers()
-                        .stream()
-                        .filter(u -> user.equals(u.getNickname()))
-                        .findFirst()
-                        .get()
-        ));
+        if (user.equals(UserService.INSTANCE.getUserNickname()) && room.isPresent()) {
+            this.rooms.remove(room.get());
+            UserService.INSTANCE.setCurrentRoom(null);
+            syncView();
+        }
+        else {
+            room.ifPresent(value -> value.getUsers().remove(
+                    value.getUsers()
+                            .stream()
+                            .filter(u -> user.equals(u.getNickname()))
+                            .findFirst()
+                            .get()
+            ));
+        }
     }
 
     public void joinRoom(String room) {
         NetworkService.INSTANCE.sendPacket(new JoinRoomPacket(room));
+    }
+
+    public void leaveRoom(Room room) {
+        NetworkService.INSTANCE.sendPacket(new LeaveRoomPacket(room.getName()));
     }
 
     public void messageSent(Message message) {

@@ -1,6 +1,7 @@
 package fr.mifa.client.gui.controls;
 
 import com.jfoenix.controls.JFXTextArea;
+import fr.mifa.client.services.RoomService;
 import fr.mifa.client.services.UserService;
 import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
@@ -40,6 +41,8 @@ public class ChatroomControl extends GridPane {
     @FXML
     private FontIcon sendBtn;
 
+    @FXML
+    private FontIcon leaveBtn;
 
     public ChatroomControl(Room room) {
         this.room = room;
@@ -54,6 +57,7 @@ public class ChatroomControl extends GridPane {
         }
 
         sendBtn.setOnMouseClicked((EventHandler<? super MouseEvent>) e -> sendMessage());
+        leaveBtn.setOnMouseClicked((EventHandler<? super MouseEvent>) e -> leaveRoom());
         this.setOnKeyReleased((EventHandler<? super KeyEvent>) this::handleInput);
     }
 
@@ -72,6 +76,10 @@ public class ChatroomControl extends GridPane {
             UserService.INSTANCE.sendText(message.getText());
             message.setText("");
         }
+    }
+
+    private void leaveRoom() {
+        RoomService.INSTANCE.leaveRoom(UserService.INSTANCE.getCurrentRoom());
     }
 
     //TODO: naming

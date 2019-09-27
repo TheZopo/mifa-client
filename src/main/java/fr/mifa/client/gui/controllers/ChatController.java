@@ -73,13 +73,12 @@ public class ChatController {
 
     public void loadRooms(ArrayList<Room> rooms) {
         roomList.getChildren().clear();
+        logger.debug("Received "  + rooms.size() + " rooms");
         for (Room room : rooms) {
             roomList.getChildren().add(new RoomControl(room));
         }
         Room currentRoom = UserService.INSTANCE.getCurrentRoom();
-        if (currentRoom != null) {
-            switchToRoom(currentRoom);
-        }
+        switchToRoom(currentRoom);
     }
 
     public void switchToRoom(Room room) {
@@ -88,7 +87,9 @@ public class ChatController {
             // a room is already loaded, remove it to replace
             children.remove(container.getChildren().size() - 1);
         }
-        currentRoomControl = new ChatroomControl(room);
-        children.add(currentRoomControl);
+        if (room != null) {
+            currentRoomControl = new ChatroomControl(room);
+            children.add(currentRoomControl);
+        }
     }
 }
