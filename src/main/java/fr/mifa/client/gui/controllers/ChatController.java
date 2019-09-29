@@ -41,22 +41,6 @@ public class ChatController {
 
     @FXML
     public void initialize() {
-        /*ArrayList<String> messages = new ArrayList<>();
-        messages.add("Hello");
-        messages.add("Hello my dear");
-        messages.add("Hello my dear how are you ?");
-
-        messagesList.getChildren().add(new MessageControl("Bastien", messages, MessageType.OTHER));
-
-        messages.clear();
-        messages.add("Hi !");
-        messages.add("Hi ! I'm fine");
-        messages.add("Hi ! I'm fine thanks you !");
-
-        messagesList.getChildren().add(new MessageControl("Me", messages, MessageType.ME));
-        */
-
-        //TODO: load messages
     }
 
     public ChatroomControl getCurrentRoomControl() {
