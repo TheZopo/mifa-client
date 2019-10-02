@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<?import javafx.scene.image.ImageView?><?import javafx.scene.image.Image?><?import com.jfoenix.validation.RequiredFieldValidator?><?import org.kordamp.ikonli.javafx.FontIcon?>
+<StackPane xmlns="http://javafx.com/javafx/10" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.mifa.client.gui.controllers.LoginController">
+    <children>
+        <VBox styleClass="dialog-wrapper">
+            <JFXDialogLayout styleClass="form-dialog">
+                <heading>
+                    <Label>Welcome to mIFA - the IFA Messenger</Label>
+                </heading>
+                <body>
+                    <VBox styleClass="form">
+                        <HBox styleClass="icon-textfield-wrapper">
+                            <FontIcon iconLiteral="fas-server" iconSize="24" iconColor="gray"/>
+                            <JFXTextField styleClass="big-textfield" fx:id="host" promptText="localhost"/>
+                        </HBox>
+                        <HBox styleClass="icon-textfield-wrapper">
+                            <FontIcon iconLiteral="fas-user" iconSize="24" iconColor="gray"/>
+                            <JFXTextField styleClass="big-textfield" fx:id="nickname" promptText="Nickname" >
+                                <validators>
+                                    <RequiredFieldValidator message="Nickname required">
+                                        <FontIcon iconLiteral="fas-exclamation-triangle"/>
+                                    </RequiredFieldValidator>
+                                </validators>
+                            </JFXTextField>
+                        </HBox>
+                    </VBox>
+                </body>
+                <actions>
+                    <JFXButton onAction="#login" styleClass="primary-button" buttonType="RAISED" text="Join mIFA" />
+                </actions>
+            </JFXDialogLayout>
+        </VBox>
+    </children>
+</StackPane>
+

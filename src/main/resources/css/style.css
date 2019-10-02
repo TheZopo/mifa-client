@@ -1,0 +1,80 @@
+/** Titles **/
+
+.title-1 {
+    -fx-font-size: 24;
+    -fx-padding: 30 0;
+}
+
+/* Messages */
+
+.messages-list {
+    -fx-spacing: 4;
+}
+
+.message-other {
+    -fx-spacing: 10;
+    -fx-alignment: TOP_LEFT;
+}
+
+.message-author {
+    -fx-spacing: 4;
+    -fx-alignment: TOP_CENTER;
+}
+
+.message-other > .message-content {
+    -fx-spacing: 2;
+}
+
+.message-other > .message-content > Label {
+    -fx-border-color: gray;
+    -fx-background-color: lightgray;
+    -fx-padding: 10;
+}
+
+.message-me {
+    -fx-spacing: 10;
+    -fx-alignment: TOP_RIGHT;
+}
+
+.message-me > .message-content {
+    -fx-alignment: TOP_RIGHT;
+    -fx-spacing: 2;
+}
+
+.message-me > .message-content > Label {
+    -fx-border-color: #81c5e6;
+    -fx-background-color: lightblue;
+    -fx-padding: 10;
+}
+
+/* Rooms list */
+
+.room-list {
+    -fx-spacing: 5;
+}
+
+.room-list > .room {
+    -fx-padding: 4;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 16;
+    -fx-spacing: 12;
+}
+
+.room-list > .room:hover {
+    -fx-background-color: lightgray;
+    -fx-cursor: hand;
+}
+
+.room-header {
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+}
+
+.room-header > Label {
+    -fx-padding: 10 0 10 100;
+}
+
+/* Buttons */
+
+FontIcon.icon-button:hover {
+    -fx-cursor: hand;
+}
