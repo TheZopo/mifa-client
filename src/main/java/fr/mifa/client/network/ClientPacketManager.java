@@ -20,10 +20,6 @@ public class ClientPacketManager extends PacketManager {
             LeftRoomPacket leftRoomPacket = (LeftRoomPacket) packet;
             logger.debug("Received LeftRoomPacket");
             RoomService.INSTANCE.userLeft(leftRoomPacket.getRoomId(), leftRoomPacket.getNickname());
-        } else if(packet instanceof MessageSentPacket) {
-            MessageSentPacket messageSentPacket = (MessageSentPacket) packet;
-            logger.debug("Received MessageSentPacket");
-            RoomService.INSTANCE.messageSent(messageSentPacket.getMessage());
         } else if(packet instanceof RoomListPacket) {
             RoomListPacket roomListPacket = (RoomListPacket)packet;
             logger.debug("Received RoomListPacket");

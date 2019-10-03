@@ -42,8 +42,9 @@ public enum  UserService {
 
     public void sendText(String text) {
         if (currentRoom != null) {
-            NetworkService.INSTANCE.sendPacket(new MessagePacket(new TextMessage(
+            currentRoom.getPacketManager().send(new MessagePacket(new TextMessage(
                     currentRoom.getName(),
+                    userNickname,
                     text
             )));
         }

@@ -2,6 +2,7 @@ package fr.mifa.client.services;
 
 import fr.mifa.client.gui.controllers.ChatController;
 import fr.mifa.client.gui.controls.MessageType;
+import fr.mifa.client.network.RoomClientPacketManager;
 import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
@@ -36,8 +37,11 @@ public enum RoomService {
     public void userJoined(Room room, String user) {
         Optional<Room> storedRoom = getRoomById(room.getId());
         storedRoom.ifPresent(value -> this.rooms.remove(value));
+
+        room.setPacketManager(new RoomClientPacketManager(room));
         this.rooms.add(room);
         UserService.INSTANCE.setCurrentRoom(room);
+
         syncView();
     }
 
