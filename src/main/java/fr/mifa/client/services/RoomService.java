@@ -2,6 +2,7 @@ package fr.mifa.client.services;
 
 import fr.mifa.client.gui.controllers.ChatController;
 import fr.mifa.client.gui.controls.MessageType;
+import fr.mifa.client.network.ClientPacketManager;
 import fr.mifa.client.network.RoomClientPacketManager;
 import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
@@ -26,6 +27,10 @@ public enum RoomService {
     }
 
     public void setRooms(ArrayList<Room> rooms) {
+        for(Room room : rooms) {
+            room.setPacketManager(new RoomClientPacketManager(room));
+        }
+
         this.rooms = rooms;
         syncView();
     }
