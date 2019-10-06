@@ -1,21 +1,34 @@
 package fr.mifa.client.gui.controls;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
+import fr.mifa.core.models.FileMessage;
+import fr.mifa.core.models.Message;
+import fr.mifa.core.models.TextMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
 public class MessageControl extends HBox {
+    private final List<String> imageExtensions = Arrays.asList("png", "jpg", "jpeg", "gif");
+
     private String authorName;
-    private ArrayList<String> messagesList;
+    private ArrayList<Message> messagesList;
     private MessageType messageType;
 
     @FXML
@@ -24,7 +37,7 @@ public class MessageControl extends HBox {
     @FXML
     private VBox messages;
 
-    public MessageControl(String authorName, ArrayList<String> messagesList, MessageType messageType) {
+    public MessageControl(String authorName, ArrayList<Message> messagesList, MessageType messageType) {
         this.authorName = authorName;
         this.messagesList = messagesList;
         this.messageType = messageType;
@@ -52,14 +65,59 @@ public class MessageControl extends HBox {
     @FXML
     public void initialize() {
         author.setText(authorName);
-        for(String message : messagesList) {
-            messages.getChildren().add(new Label(message));
+        for(Message message : messagesList) {
+            displayMessage(message);
         }
     }
 
-    public void addMessage(String message) {
+    public void addMessage(Message message) {
         messagesList.add(message);
-        messages.getChildren().add(new Label(message));
+        displayMessage(message);
+    }
+
+    private void displayMessage(Message message) {
+        if (message instanceof TextMessage) {
+            messages.getChildren().add(new Label(((TextMessage)message).getText()));
+        }
+        else if (message instanceof FileMessage) {
+            FileMessage fileMessage = (FileMessage)message;
+            String extension = "";
+
+            int i = fileMessage.getFilename().lastIndexOf('.');
+            int p = Math.max(fileMessage.getFilename().lastIndexOf('/'), fileMessage.getFilename().lastIndexOf('\\'));
+
+            if (i > p) {
+                extension = fileMessage.getFilename().substring(i+1);
+            }
+
+            if (imageExtensions.contains(extension)) {
+                Image img = new Image(new ByteArrayInputStream(fileMessage.getContent()));
+                ImageView imageView = new ImageView(img);
+                messages.getChildren().add(imageView);
+            }
+            else {
+                Hyperlink hyperlink = new Hyperlink(fileMessage.getFilename());
+                hyperlink.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent event) {
+                        FileChooser fileChooser = new FileChooser();
+                        fileChooser.setTitle("Saving your file");
+                        fileChooser.setInitialFileName(fileMessage.getFilename());
+                        File file = fileChooser.showSaveDialog(getScene().getWindow());
+                        try (FileOutputStream out = new FileOutputStream(file))
+                        {
+                            out.write(fileMessage.getContent());
+                        } catch (FileNotFoundException e) {
+
+                        } catch (IOException e) {
+
+                        }
+                    }
+                });
+                messages.getChildren().add(hyperlink);
+            }
+        }
     }
 
     public String getAuthorName() {

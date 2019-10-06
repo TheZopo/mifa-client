@@ -32,10 +32,6 @@ public enum NetworkService {
         UserService.INSTANCE.setUserNickname(nickname);
     }
 
-    public void sendTextMessage(String room, String message) {
-        sendPacket(new MessagePacket(new TextMessage(room, message)));
-    }
-
     public void sendPacket(Packet packet) {
         client.send(packet);
     }

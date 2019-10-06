@@ -17,10 +17,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -42,6 +44,9 @@ public class ChatroomControl extends GridPane {
     private FontIcon sendBtn;
 
     @FXML
+    private FontIcon sendFileBtn;
+
+    @FXML
     private FontIcon leaveBtn;
 
     public ChatroomControl(Room room) {
@@ -57,6 +62,7 @@ public class ChatroomControl extends GridPane {
         }
 
         sendBtn.setOnMouseClicked((EventHandler<? super MouseEvent>) e -> sendMessage());
+        sendFileBtn.setOnMouseClicked((EventHandler<? super MouseEvent>) e -> sendFile());
         leaveBtn.setOnMouseClicked((EventHandler<? super MouseEvent>) e -> leaveRoom());
         this.setOnKeyReleased((EventHandler<? super KeyEvent>) this::handleInput);
     }
@@ -78,6 +84,14 @@ public class ChatroomControl extends GridPane {
         }
     }
 
+    private void sendFile() {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
+        if (selectedFile != null) {
+            UserService.INSTANCE.sendFile(selectedFile);
+        }
+    }
+
     private void leaveRoom() {
         RoomService.INSTANCE.leaveRoom(UserService.INSTANCE.getCurrentRoom());
     }
@@ -88,21 +102,15 @@ public class ChatroomControl extends GridPane {
         String author = message.getAuthorName();
         MessageControl lastMessage = childMessages.size() > 0 ? (MessageControl) messagesList.getChildren().get(childMessages.size() - 1) : null;
 
-        if (message instanceof TextMessage) {
-            TextMessage textMessage = (TextMessage)message;
-            String messageStr = textMessage.getText();
-            if(lastMessage != null && lastMessage.getAuthorName().equals(author)) {
-                lastMessage.addMessage(messageStr);
-            } else {
-                ArrayList<String> subMessagesList = new ArrayList<>();
-                subMessagesList.add(messageStr);
+        if(lastMessage != null && lastMessage.getAuthorName().equals(author)) {
+            lastMessage.addMessage(message);
+        } else {
+            ArrayList<Message> subMessagesList = new ArrayList<>();
+            subMessagesList.add(message);
 
-                messagesList.getChildren().add(new MessageControl(author, subMessagesList, messageType));
-            }
+            messagesList.getChildren().add(new MessageControl(author, subMessagesList, messageType));
         }
-        else {
-            logger.warn("Unhandled message type" + message.getClass().getName());
-        }
+
     }
 
     private void handleInput(KeyEvent e) {
