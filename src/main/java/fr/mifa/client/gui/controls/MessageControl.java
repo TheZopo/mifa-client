@@ -95,28 +95,28 @@ public class MessageControl extends HBox {
                 ImageView imageView = new ImageView(img);
                 messages.getChildren().add(imageView);
             }
-            else {
-                Hyperlink hyperlink = new Hyperlink(fileMessage.getFilename());
-                hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-                    @Override
-                    public void handle(ActionEvent event) {
-                        FileChooser fileChooser = new FileChooser();
-                        fileChooser.setTitle("Saving your file");
-                        fileChooser.setInitialFileName(fileMessage.getFilename());
-                        File file = fileChooser.showSaveDialog(getScene().getWindow());
-                        try (FileOutputStream out = new FileOutputStream(file))
-                        {
-                            out.write(fileMessage.getContent());
-                        } catch (FileNotFoundException e) {
+            Hyperlink hyperlink = new Hyperlink(fileMessage.getFilename());
+            hyperlink.setOnAction(new EventHandler<ActionEvent>() {
 
-                        } catch (IOException e) {
+                @Override
+                public void handle(ActionEvent event) {
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Saving your file");
+                    fileChooser.setInitialFileName(fileMessage.getFilename());
+                    File file = fileChooser.showSaveDialog(getScene().getWindow());
+                    try (FileOutputStream out = new FileOutputStream(file))
+                    {
+                        out.write(fileMessage.getContent());
+                    } catch (FileNotFoundException e) {
 
-                        }
+                    } catch (IOException e) {
+
                     }
-                });
-                messages.getChildren().add(hyperlink);
-            }
+                }
+            });
+            messages.getChildren().add(hyperlink);
+
         }
     }
 
