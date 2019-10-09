@@ -15,14 +15,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 
 public class MessageControl extends HBox {
     private final List<String> imageExtensions = Arrays.asList("png", "jpg", "jpeg", "gif");
@@ -60,6 +63,25 @@ public class MessageControl extends HBox {
         } else {
             this.getStyleClass().add("message-other");
         }
+
+        StackPane stickyNotesPane = new StackPane();
+        stickyNotesPane.setPrefSize(200, 200);
+        stickyNotesPane.setStyle("-fx-background-color: yellow;");
+
+        Popup popup = new Popup();
+        popup.getContent().add(stickyNotesPane);
+
+        this.hoverProperty().addListener((obs, oldVal, newValue) -> {
+            //TODO
+            if (newValue) {
+                Bounds bnds = this.localToScreen(this.getLayoutBounds());
+                double x = bnds.getMinX();//- (stickyNotesPane.getWidth() / 2) + (this.getWidth() / 2);
+                double y = bnds.getMinY();//- stickyNotesPane.getHeight();
+                popup.show(this, x, y);
+            } else {
+                popup.hide();
+            }
+        });
     }
 
     @FXML

@@ -8,6 +8,7 @@ import fr.mifa.core.models.Message;
 import fr.mifa.core.models.Room;
 import fr.mifa.core.network.protocol.JoinRoomPacket;
 import fr.mifa.core.network.protocol.LeaveRoomPacket;
+import fr.mifa.core.network.protocol.ReactionPacket;
 import javafx.application.Platform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,6 +86,27 @@ public enum RoomService {
                 Platform.runLater(() -> {
                     ChatController.INSTANCE.getCurrentRoomControl().addMessage(message, origin);
                 });
+            }
+        }
+        else {
+            logger.warn("Room does not exist !");
+        }
+    }
+
+    public void reactionSent(ReactionPacket packet) {
+        Optional<Room> room = getRoomByName(packet.getRoomName());
+        if (room.isPresent()) {
+            Optional<Message> message = room.get()
+                    .getHistory()
+                    .stream()
+                    .filter(x -> x.getId() == packet.getMessageId())
+                    .findFirst();
+            if (message.isPresent()) {
+                message.get().getReactions().add(packet.getReaction());
+                syncView();
+            }
+            else {
+                logger.warn("Message does not exist !");
             }
         }
         else {

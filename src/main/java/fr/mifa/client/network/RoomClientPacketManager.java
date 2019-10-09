@@ -5,6 +5,7 @@ import fr.mifa.core.models.Room;
 import fr.mifa.core.network.RoomPacketManager;
 import fr.mifa.core.network.protocol.MessagePacket;
 import fr.mifa.core.network.protocol.Packet;
+import fr.mifa.core.network.protocol.ReactionPacket;
 
 public class RoomClientPacketManager extends RoomPacketManager {
     public RoomClientPacketManager(Room room) {
@@ -16,6 +17,10 @@ public class RoomClientPacketManager extends RoomPacketManager {
         if(packet instanceof MessagePacket) {
             MessagePacket messagePacket = (MessagePacket) packet;
             RoomService.INSTANCE.messageSent(messagePacket.getMessage());
+        }
+        else if (packet instanceof ReactionPacket) {
+            ReactionPacket reactionPacket = (ReactionPacket)packet;
+            RoomService.INSTANCE.reactionSent(reactionPacket);
         }
     }
 }
