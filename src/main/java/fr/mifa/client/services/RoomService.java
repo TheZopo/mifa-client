@@ -44,6 +44,7 @@ public enum RoomService {
         storedRoom.ifPresent(value -> this.rooms.remove(value));
 
         room.setPacketManager(new RoomClientPacketManager(room));
+        logger.debug("history size" + room.getHistory().size());
         this.rooms.add(room);
         UserService.INSTANCE.setCurrentRoom(room);
 
@@ -74,6 +75,7 @@ public enum RoomService {
 
     public void leaveRoom(Room room) {
         NetworkService.INSTANCE.sendPacket(new LeaveRoomPacket(room.getName()));
+        room.getPacketManager().disconnect();
     }
 
     public void messageSent(Message message) {

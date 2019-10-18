@@ -40,7 +40,7 @@
                     </validators>
                 </JFXTextArea>
                 <FontIcon fx:id="sendBtn" iconLiteral="far-paper-plane" iconSize="32" styleClass="icon-button" />
-                <FontIcon fx:id="sendFileBtn" iconLiteral="far-paper-plane" iconSize="32" styleClass="icon-button" />
+                <FontIcon fx:id="sendFileBtn" iconLiteral="fas-file-import" iconSize="32" styleClass="icon-button" />
             </HBox>
         </StackPane>
         <rowConstraints>

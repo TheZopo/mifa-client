@@ -2,12 +2,7 @@ package fr.mifa.client.services;
 
 import fr.mifa.client.network.ClientPacketManager;
 import fr.mifa.client.utils.ClientProperties;
-import fr.mifa.core.models.Message;
-import fr.mifa.core.models.TextMessage;
-import fr.mifa.core.network.PacketManager;
 import fr.mifa.core.network.protocol.AuthPacket;
-import fr.mifa.core.network.protocol.JoinRoomPacket;
-import fr.mifa.core.network.protocol.MessagePacket;
 import fr.mifa.core.network.protocol.Packet;
 
 public enum NetworkService {
